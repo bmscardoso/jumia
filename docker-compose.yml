@@ -1,0 +1,11 @@
+version: '3'
+services:
+  brunocardoso:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: java:8
+    container_name: brunocardoso
+    ports:
+      - "8080:8080"
+      - "5005:5005"
