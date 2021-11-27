@@ -29,7 +29,6 @@ Then go to the **_docker-compose.yml_** file in the project's root directory, an
 ```yaml
 ports:
       - "8080:{application port}"
-      - "5005:5005"
 ```
 
 ---
