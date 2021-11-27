@@ -111,20 +111,20 @@ class CustomerServiceTest {
 
     @Test
     void readCustomersAll() {
-        List<Customer> result = (List<Customer>) customerService.readCustomers(customerRepository, 0, 10, null, null).get("customers");
+        List<Customer> result = (List<Customer>) customerService.readCustomersByName(customerRepository, 0, 10, null, null).get("customers");
         Assert.isTrue(result.size() == 10, "Returned a full page of 10 Customers");
     }
 
     @Test
     void readCustomersByName() {
-        List<Customer> result = (List<Customer>) customerService.readCustomers(customerRepository, 0, 10, "wal", null).get("customers");
-        Assert.isTrue(result.size() == 2, "Returned two customers whose name is or starts with 'wal'");
+        List<Customer> result = (List<Customer>) customerService.readCustomersByName(customerRepository, 0, 10, "wal", null).get("customers");
+        Assert.isTrue(result.size() == 3, "Returned two customers whose name contains 'wal'");
     }
 
     @Test
     void readCustomersByNameAndActive() {
-        List<Customer> result = (List<Customer>) customerService.readCustomers(customerRepository, 0, 10, "wal", true).get("customers");
-        Assert.isTrue(result.size() == 1, "Returned one customer whose name is or starts with 'wal', and has an active phone number");
+        List<Customer> result = (List<Customer>) customerService.readCustomersByName(customerRepository, 0, 10, "wal", true).get("customers");
+        Assert.isTrue(result.size() == 2, "Returned one customer whose name contains 'wal', and has an active phone number");
     }
 
     @Test

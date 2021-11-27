@@ -54,8 +54,7 @@ public class CustomerService {
         }
     }
 
-    public Map<String, Object> readCustomers(CustomerRepository customerRepository, int page, int size, String name, Boolean isActive){
-
+    public Map<String, Object> readCustomersByName(CustomerRepository customerRepository, int page, int size, String name, Boolean isActive){
 
         List<Customer> customerList = new ArrayList<>();
         Pageable paging = PageRequest.of(page, size);
@@ -73,11 +72,38 @@ public class CustomerService {
         }else{
 
             if(isActive == null){
-                pageCustomers = customerRepository.findByName(paging, name);
+                pageCustomers = customerRepository.findByNameContaining(paging, name);
             }else{
-                pageCustomers = customerRepository.findByNameAndActive(paging, name, isActive);
+                pageCustomers = customerRepository.findByNameContainingAndActive(paging, name, isActive);
             }
 
+        }
+
+
+        customerList = pageCustomers.getContent();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("customers", customerList);
+        response.put("currentPage", pageCustomers.getNumber());
+        response.put("totalItems", pageCustomers.getTotalElements());
+        response.put("totalPages", pageCustomers.getTotalPages());
+
+        return response;
+    }
+
+    public Map<String, Object> readCustomersByCountry(ConfigProperties configProperties, CustomerRepository customerRepository, int page, int size, String country, Boolean isActive){
+
+        String countryCode = CustomerUtils.checkNumberByCountry(configProperties.getCountrycodes(), country);
+
+        List<Customer> customerList = new ArrayList<>();
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<Customer> pageCustomers;
+
+        if(isActive == null){
+            pageCustomers = customerRepository.findByPhoneStartsWith(paging, countryCode);
+        }else{
+            pageCustomers = customerRepository.findByPhoneStartsWithAndActive(paging, countryCode, isActive);
         }
 
 

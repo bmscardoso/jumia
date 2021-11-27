@@ -29,6 +29,14 @@ class CustomerUtilsTest {
     static String validUganda = "(256) 775069443";
     static String invalidUganda = "(256) 7503O6263";
 
+    //Country names
+    String cameroon = "Cameroon";
+    String ethiopia = "Ethiopia";
+    String morocco = "Morocco";
+    String mozambique = "Mozambique";
+    String uganda = "Uganda";
+
+
     Map<String, String> countrycodes;
 
     @BeforeAll
@@ -70,6 +78,26 @@ class CustomerUtilsTest {
             fail();
         }
         if(CustomerUtils.checkCountryByNumber(countrycodes, invalidUganda) != null){
+            fail();
+        }
+    }
+
+    @Test
+    void checkNumberByCountry() {
+
+        if(!CustomerUtils.checkNumberByCountry(countrycodes, cameroon).equals("(237)")){
+            fail();
+        }
+        if(!CustomerUtils.checkNumberByCountry(countrycodes, ethiopia).equals("(251)")){
+            fail();
+        }
+        if(!CustomerUtils.checkNumberByCountry(countrycodes, morocco).equals("(212)")){
+            fail();
+        }
+        if(!CustomerUtils.checkNumberByCountry(countrycodes, mozambique).equals("(258)")){
+            fail();
+        }
+        if(!CustomerUtils.checkNumberByCountry(countrycodes, uganda).equals("(256)")){
             fail();
         }
     }

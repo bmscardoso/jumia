@@ -35,6 +35,73 @@
 			"response": []
 		},
 		{
+			"name": "List all customers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/bruno/Documents/UnitTestDoc.pdf",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "document.pdf",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "dir",
+							"value": "testunita",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/customer/all?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customer",
+						"all"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "List active customers",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -104,73 +171,6 @@
 					]
 				},
 				"description": "List all customers who has an active phone"
-			},
-			"response": []
-		},
-		{
-			"name": "List all customers",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/home/bruno/Documents/UnitTestDoc.pdf",
-							"disabled": true
-						},
-						{
-							"key": "name",
-							"value": "document.pdf",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "dir",
-							"value": "testunita",
-							"type": "text",
-							"disabled": true
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8080/customer/all?page=0&size=10",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"customer",
-						"all"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "0"
-						},
-						{
-							"key": "size",
-							"value": "10"
-						}
-					]
-				}
 			},
 			"response": []
 		},
@@ -396,6 +396,199 @@
 						{
 							"key": "active",
 							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List customers by country",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/bruno/Documents/UnitTestDoc.pdf",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "document.pdf",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "dir",
+							"value": "testunita",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/customer/bycountry?country=Uganda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customer",
+						"bycountry"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "Uganda"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List customers by country and status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/bruno/Documents/UnitTestDoc.pdf",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "document.pdf",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "dir",
+							"value": "testunita",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/customer/bycountryandstatus?country=cAmeroon&active=false",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customer",
+						"bycountryandstatus"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "cAmeroon"
+						},
+						{
+							"key": "active",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get customer by phone",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/bruno/Documents/UnitTestDoc.pdf",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "document.pdf",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "dir",
+							"value": "testunita",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/customer/byphone?phone=%28212%29+6007989253",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customer",
+						"byphone"
+					],
+					"query": [
+						{
+							"key": "phone",
+							"value": "%28212%29+6007989253"
 						}
 					]
 				}

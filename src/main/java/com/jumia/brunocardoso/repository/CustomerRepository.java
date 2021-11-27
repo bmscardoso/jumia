@@ -23,10 +23,20 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     Page<Customer> findByActive(Pageable pageable, boolean active);
 
-    @Query("SELECT C FROM Customer C WHERE LOWER(C.name) LIKE LOWER(concat(?1, '%'))")
-    Page<Customer> findByName(Pageable pageable, String name);
+    Page<Customer> findByNameContaining(Pageable pageable, String name);
 
-    @Query("SELECT C FROM Customer C WHERE LOWER(C.name) LIKE LOWER(concat(?1, '%')) AND C.active = ?2")
-    Page<Customer> findByNameAndActive(Pageable pageable, String name, boolean active);
+    Page<Customer> findByNameContainingAndActive(Pageable pageable, String name, boolean active);
+
+
+    //Always avoid SQL injection, but pass only this time.
+    //I've tried...sqlite does not have the REGEXP function installed by default
+    @Query(value = "select * from customer where phone REGEXP ?1", nativeQuery = true)
+    Page<Customer> findByPhoneRegex(Pageable pageable, String regex);
+    Page<Customer> findByPhoneRegexAndActive(Pageable pageable, String regex, boolean active);
+
+
+    Page<Customer> findByPhoneStartsWith(Pageable pageable, String phone);
+
+    Page<Customer> findByPhoneStartsWithAndActive(Pageable pageable, String phone, boolean active);
 
 }
