@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3f0ecec5-ff8d-4535-9fe3-4176284bedba",
+		"_postman_id": "9fba71b7-fb47-4ada-8cfa-d1113ff90e31",
 		"name": "BrunoCardoso",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -289,7 +289,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/customer/byname?page=0&size=10&name=Walid%20Hammadi",
+					"raw": "http://localhost:8080/customer/byname?page=0&size=10&name=wal",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -315,7 +315,7 @@
 						},
 						{
 							"key": "name",
-							"value": "Walid%20Hammadi"
+							"value": "wal"
 						}
 					]
 				}

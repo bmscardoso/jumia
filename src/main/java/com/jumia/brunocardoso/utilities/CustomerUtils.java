@@ -4,6 +4,9 @@ import java.util.Map;
 
 public class CustomerUtils {
 
+    private CustomerUtils() {
+    }
+
     /**
      * Returns the country of phone number
      * @param countrycodes

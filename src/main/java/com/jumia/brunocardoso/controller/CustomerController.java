@@ -9,12 +9,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
+/**
+ * @SuppressWarnings("squid:S4684")
+ * Objective: Ignore SonarQube's suggestion to use a DTO for the Customer object.
+ * Reason: There is no such need.
+ *
+ * @SuppressWarnings("squid:S4529")
+ * Objective: Ignore SonarQube's suggestion to make sure that exposing this HTTP endpoint is safe here.
+ * Reason: There is no need to use any type of authentication in this application.
+ */
+@SuppressWarnings({"squid:S4684", "squid:S4529"})
 @RequestMapping(value = "customer")
 @RestController
 public class CustomerController {
+    
+    private static final String NOT_ACCEPTABLE_MESSAGE = "Request not acceptable. Check logs for details";
 
     @Autowired
     private CustomerService customerService;
@@ -36,7 +47,7 @@ public class CustomerController {
         if(createdCustomer != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
         }
-        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Request not acceptable. Check logs for details");
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(NOT_ACCEPTABLE_MESSAGE);
     }
 
     @PutMapping(value = "update")
@@ -45,7 +56,7 @@ public class CustomerController {
         if(updatedCustomer != null){
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(updatedCustomer);
         }
-        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Request not acceptable. Check logs for details");
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(NOT_ACCEPTABLE_MESSAGE);
     }
 
     @DeleteMapping(value = "delete")
@@ -53,7 +64,7 @@ public class CustomerController {
         if(customerService.deleteCustomer(customerRepository, customer)){
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         }
-        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Request not acceptable. Check logs for details");
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(NOT_ACCEPTABLE_MESSAGE);
     }
 
     @GetMapping(value = "all")

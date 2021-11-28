@@ -48,3 +48,7 @@ ports:
 
 Import to [Postman](https://www.postman.com/) the file `examples/BrunoCardoso.postman_collection.json`.  
 ___
+
+## This application has been refactored based on the SonarQube 7.5 report.
+
+![Alt text](sonarReport.png)

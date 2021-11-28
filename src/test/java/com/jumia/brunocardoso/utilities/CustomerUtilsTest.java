@@ -83,7 +83,7 @@ class CustomerUtilsTest {
     }
 
     @Test
-    void checkNumberByCountry() {
+    void checkNumberByCountrySuccess() {
 
         if(!CustomerUtils.checkNumberByCountry(countrycodes, cameroon).equals("(237)")){
             fail();
@@ -98,6 +98,14 @@ class CustomerUtilsTest {
             fail();
         }
         if(!CustomerUtils.checkNumberByCountry(countrycodes, uganda).equals("(256)")){
+            fail();
+        }
+    }
+
+    @Test
+    void checkNumberByCountryFail() {
+
+        if(CustomerUtils.checkNumberByCountry(countrycodes, "I'am not a country") != null){
             fail();
         }
     }

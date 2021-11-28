@@ -1,8 +1,6 @@
 package com.jumia.brunocardoso.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -18,6 +16,13 @@ public class Customer {
     private boolean active;
 
     public Customer() {
+        //JPA requires this as the default constructor
+    }
+
+    public Customer(String name, String phone, boolean active) {
+        this.name = name;
+        this.phone = phone;
+        this.active = active;
     }
 
     public int getId() {

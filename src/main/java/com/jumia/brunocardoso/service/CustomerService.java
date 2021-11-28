@@ -6,15 +6,12 @@ import com.jumia.brunocardoso.repository.CustomerRepository;
 import com.jumia.brunocardoso.utilities.CustomerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,37 +23,31 @@ public class CustomerService {
 
     @Transactional
     public Customer createCustomer(ConfigProperties configProperties, CustomerRepository customerRepository, Customer customer){
-        try {
-            if (!customerRepository.existsByPhone(customer.getPhone())){
+        if (!customerRepository.existsByPhone(customer.getPhone())){
 
-                String country = CustomerUtils.checkCountryByNumber(configProperties.getCountrycodes(), customer.getPhone());
-                if(country == null){
-                    LOGGER.error("{} is an invalid number", customer.getPhone());
-                    return null;
-                }
-
-                //LOG identified number from PAIS
-                LOGGER.info("{} identified has a {} number.", customer.getPhone(), country);
-
-                customer.setId(null == customerRepository.findMaxId()? 0 : customerRepository.findMaxId() + 1);
-                Customer createdCustomer = customerRepository.save(customer);
-                //LOG "Customer record created successfully.";
-
-                LOGGER.info("Customer record created successfully.");
-
-                return createdCustomer;
-            }else {
-                LOGGER.error("Customer does not exist");
+            String country = CustomerUtils.checkCountryByNumber(configProperties.getCountrycodes(), customer.getPhone());
+            if(country == null){
+                LOGGER.error("{} is an invalid number", customer.getPhone());
                 return null;
             }
-        }catch (Exception e){
-            throw e;
+
+            LOGGER.info("{} identified has a {} number.", customer.getPhone(), country);
+
+            customer.setId(null == customerRepository.findMaxId()? 0 : customerRepository.findMaxId() + 1);
+            Customer createdCustomer = customerRepository.save(customer);
+
+            LOGGER.info("Customer record created successfully.");
+
+            return createdCustomer;
+        }else {
+            LOGGER.error("Phone number already exists");
+            return null;
         }
     }
 
     public Map<String, Object> readCustomersByName(CustomerRepository customerRepository, int page, int size, String name, Boolean isActive){
 
-        List<Customer> customerList = new ArrayList<>();
+        List<Customer> customerList;
         Pageable paging = PageRequest.of(page, size);
 
         Page<Customer> pageCustomers;
@@ -95,7 +86,7 @@ public class CustomerService {
 
         String countryCode = CustomerUtils.checkNumberByCountry(configProperties.getCountrycodes(), country);
 
-        List<Customer> customerList = new ArrayList<>();
+        List<Customer> customerList;
         Pageable paging = PageRequest.of(page, size);
 
         Page<Customer> pageCustomers;
