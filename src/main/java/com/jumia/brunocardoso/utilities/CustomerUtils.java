@@ -1,7 +1,15 @@
 package com.jumia.brunocardoso.utilities;
 
+import com.jumia.brunocardoso.entity.Customer;
+import org.springframework.data.domain.Page;
+
+import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @SuppressWarnings("squid:S4784") Ignore SonaQube's suggestion to make sure that using a regular expression is safe here.
+ */
+@SuppressWarnings("squid:S4784")
 public class CustomerUtils {
 
     private CustomerUtils() {
@@ -35,5 +43,16 @@ public class CustomerUtils {
             }
         }
         return null;
+    }
+
+    public static Map<String, Object> mountResponse(Page<Customer> pageCustomers){
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("customers", pageCustomers.getContent());
+        response.put("currentPage", pageCustomers.getNumber());
+        response.put("totalItems", pageCustomers.getTotalElements());
+        response.put("totalPages", pageCustomers.getTotalPages());
+
+        return response;
     }
 }

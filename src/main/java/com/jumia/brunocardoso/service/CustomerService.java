@@ -12,8 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -47,7 +45,6 @@ public class CustomerService {
 
     public Map<String, Object> readCustomersByName(CustomerRepository customerRepository, int page, int size, String name, Boolean isActive){
 
-        List<Customer> customerList;
         Pageable paging = PageRequest.of(page, size);
 
         Page<Customer> pageCustomers;
@@ -70,23 +67,13 @@ public class CustomerService {
 
         }
 
-
-        customerList = pageCustomers.getContent();
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("customers", customerList);
-        response.put("currentPage", pageCustomers.getNumber());
-        response.put("totalItems", pageCustomers.getTotalElements());
-        response.put("totalPages", pageCustomers.getTotalPages());
-
-        return response;
+        return CustomerUtils.mountResponse(pageCustomers);
     }
 
     public Map<String, Object> readCustomersByCountry(ConfigProperties configProperties, CustomerRepository customerRepository, int page, int size, String country, Boolean isActive){
 
         String countryCode = CustomerUtils.checkNumberByCountry(configProperties.getCountrycodes(), country);
 
-        List<Customer> customerList;
         Pageable paging = PageRequest.of(page, size);
 
         Page<Customer> pageCustomers;
@@ -97,16 +84,7 @@ public class CustomerService {
             pageCustomers = customerRepository.findByPhoneStartsWithAndActive(paging, countryCode, isActive);
         }
 
-
-        customerList = pageCustomers.getContent();
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("customers", customerList);
-        response.put("currentPage", pageCustomers.getNumber());
-        response.put("totalItems", pageCustomers.getTotalElements());
-        response.put("totalPages", pageCustomers.getTotalPages());
-
-        return response;
+        return CustomerUtils.mountResponse(pageCustomers);
     }
 
     @Transactional
