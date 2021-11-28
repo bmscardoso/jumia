@@ -19,7 +19,7 @@
 		<java.version>1.8</java.version>
 		<!-- This class was obtained externally. It is not in our interest to evaluate it when it is not mine. -->
 		<sonar.exclusions>**/SQLDialect.java</sonar.exclusions>
-
+		<!-- List classes that make no sense for code coverage -->
 		<sonar.coverage.exclusions>**/CustomerController.java, **/Customer.java</sonar.coverage.exclusions>
 	</properties>
 
