@@ -125,7 +125,7 @@ public class CustomerService {
             return updatedCustomer;
 
         }else {
-            LOGGER.error("Customer does not exists in the database.");
+            LOGGER.error("Customer does not exists.");
             return null;
         }
     }
